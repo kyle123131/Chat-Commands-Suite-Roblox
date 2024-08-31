@@ -112,3 +112,51 @@ Add_Function()
 ```
 Hopefully this should help you create chat commands easier.
 If you prefer it, soon a Roblox model will be released; however it most likely will not get steady updates.
+
+### UPDATE 1.2
+#### Adding Command descriptions and displaying commands to players.
+
+There is now a new table and method() that allows you to display all commands to the player.
+
+```
+module.CmdInformation = {
+	
+	["kick"] = {
+		["Title"] = "Kick",
+		["Description"] = "Kicks a player",
+		["Use"] = "CMD, PLR, REASON"
+	},
+	["ban"] = {
+		["Title"] = "Ban",
+		["Description"] = "Bans a player from the game.",
+		["Use"] = "CMD, PLR, TIME, REASON"
+	},
+	["team"] = {
+		["Title"] = "Team",
+		["Description"] = "Changes a players team",
+		["Use"] = "CMD, PLR, TEAM"
+	}
+	
+}
+
+function module:DisplayCommandsInChat()
+	if game["Run Service"]:IsClient() then
+		-- :Good
+	else
+		warn("Not Client: CMDS")
+		return
+	end
+	
+	--
+	local MSG = {
+	}
+	for INDEX, ITEM in pairs(module.CmdInformation) do
+		table.insert(MSG, module.Prefix..ITEM.Title..": DESCRIPTION:".." "..ITEM.Description.." USE:"..ITEM.Use)
+	end
+	task.wait(1)
+	for i, v in MSG do
+		game.TextChatService.TextChannels.RBXSystem:DisplaySystemMessage(v)
+	end
+end
+```
+
