@@ -18,3 +18,4 @@ Version Notes:
      - Difficult and not working properly
 May be added back later
 
+1.2: New methods and table.
